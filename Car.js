@@ -5,7 +5,7 @@ export class Car {
         this.color = spalva;
         this.fuelTankCapacity = kuroBakoTalpa;
         this.averageFuelConsumption = vidutinesKuroSanaudos;
-        this.fuelInTank = this.fuelTankCapacity;
+        this.fuelInTankLeft = kuroBakoTalpa;
         this.engineOn = false;
         this.speed = 0;        
     }
@@ -21,13 +21,14 @@ export class Car {
     turnOffTheEngine() {
         if (this.engineOn === false) {
             return 'Variklis jau yra išjungtas. Pakartotinai išjungti negalima.';
-        } else if (this.speed !==0) {
+        }
+        if (this.speed !==0) {
             return 'Variklį išjungti galima tik automobiliui sustojus!';
         } 
         this.engineOn = false;
             return 'Variklis yra išjungtas.';
         }
-
+    
     beginToDrive() {
         if (this.engineOn === false) {
             return 'Įjunkite variklį.'
@@ -35,11 +36,11 @@ export class Car {
         if (this.speed !==0) {
             return 'Pajudėjome iš vietos';
         }
-        if (this.fuelInTank < 2 * this.averageFuelConsumption) {
+        if (this.fuelInTankLeft < 2 * this.averageFuelConsumption) {
             return 'Nepakanka kuro';
         }
         this.speed = 10;
-        this.fuelInTank = `${this.fuelInTank} - ${this.averageFuelConsumption * 2}l`;
+        this.fuelInTankLeft = `${this.fuelInTankLeft} - ${this.averageFuelConsumption * 2}l`;
         return `Pajudėjome iš vietos. Greitis: ${this.speed}km/h. Kuro sanaudos: ${this.averageFuelConsumption * 2}l/100km.`;
     }
 
@@ -47,10 +48,10 @@ export class Car {
         if (this.speed === 0) {
             return 'Pajudėkite iš vietos';
         }
-        if (this.fuelInTank < this.averageFuelConsumption) {
+        if (this.fuelInTankLeft < this.averageFuelConsumption) {
             return 'Reikia įpilti kuro.';
         }
-        this.fuelInTank = `${this.fuelInTank} - ${this.averageFuelConsumption}l`;     
+        this.fuelInTankLeft = `${this.fuelInTankLeft} - ${this.averageFuelConsumption}l`;     
             return `Važiuojam! Kuro sanaudos: ${this.averageFuelConsumption}l/100km.`;
         }
 
@@ -64,7 +65,7 @@ export class Car {
     
 
     fuelLeft() {
-        return `Kuro likutis bake: ${this.fuelInTank}l.`;
+        return `Kuro likutis bake: ${this.fuelInTankLeft}l.`;
     }
 
     refuel(l) {
@@ -74,11 +75,11 @@ export class Car {
         if (this.speed !==0) {
             return 'Prieš pilant kurą turite sustoti.';
         }
-        if (this.fuelInTank === this.fuelTankCapacity) {
+        if (this.fuelInTankLeft === this.fuelTankCapacity) {
             return 'Kuro bakas yra pilnas.';
         }
-        if (this.fuelInTank + l < this.fuelTankCapacity) {
-        return `Reikia įpilti: ${this.fuelTankCapacity-(this.fuelInTank-this.averageFuelConsumption)}l.`;
+        if (this.fuelInTankLeft + l < this.fuelTankCapacity) {
+        return `Reikia įpilti: ${this.fuelTankCapacity-(this.fuelInTankLeft-this.averageFuelConsumption)}l.`;
         }
     }
 }
